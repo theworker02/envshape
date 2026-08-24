@@ -1,6 +1,6 @@
 {
   "name": "envshape",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Validate process.env against a JSON type schema.",
   "bin": {
     "envshape": "./src/cli.js"
