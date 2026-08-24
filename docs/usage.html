@@ -30,27 +30,60 @@
   <div class="wrap">
     <section>
       <h2>Synopsis</h2>
-      <pre><code>envshape [options] &lt;schema.json&gt;</code></pre>
-      <div class="callout sans"><strong>Tip:</strong> <code>envshape --help</code> prints this text in the terminal. <code>envshape --version</code> prints <code>1.0.0</code>.</div>
+      <pre><code>envshape 1.00 (1.0.0)
+
+Usage:
+  envshape check [options] &lt;schema.json&gt;
+  envshape example &lt;schema.json&gt;
+  envshape describe &lt;schema.json&gt;
+  envshape [options] &lt;schema.json&gt;
+
+Validate an environment against a JSON object of KEY -&gt; type.
+Types: string (non-empty), number (finite), bool (true/false/1/0).
+
+Subcommands:
+  check              Validate env against the schema (default)
+  example            Print a KEY= template for every schema key
+  describe           Print each key and its expected type
+
+Options:
+  -h, --help         Show this help and exit 0
+  -V, -v, --version  Print 1.0.0 and exit 0
+  --json             JSON result (check) or JSON schema dump (describe)
+  --env &lt;file&gt;       Load a simple KEY=VAL dotenv file instead of process.env
+  --strict           Fail when the env contains keys not listed in the schema
+  --example          Same as the example subcommand
+
+Exit codes:
+  0  schema matches (or example/describe succeeded)
+  1  missing/mistyped keys, extra keys under --strict, or bad input
+
+Examples:
+  envshape schema.json
+  envshape check --env .env --strict schema.json
+  envshape example schema.json
+  PORT=8080 NAME=app envshape ./env.schema.json</code></pre>
+      <div class="callout sans"><strong>Tip:</strong> <code>envshape --help</code> and <code>-h</code> print this text. <code>envshape --version</code> and <code>-V</code> print <code>1.0.0</code>.</div>
     </section>
     <section>
       <h2>Flags and arguments</h2>
-      <table class="sans"><thead><tr><th>Flag / argument</th><th>Meaning</th></tr></thead><tbody><tr><td><code>-h, --help</code></td><td>Print detailed usage and exit 0.</td></tr><tr><td><code>-v, --version</code></td><td>Print 1.0.0 and exit 0.</td></tr><tr><td><code>&lt;schema.json&gt;</code></td><td>JSON object mapping env names to string, number, or bool.</td></tr></tbody></table>
+      <p>The complete flag list is in <code>envshape --help</code> (shown above). Human output is the default; pass <code>--json</code> where supported.</p>
     </section>
     <section>
       <h2>Exit codes</h2>
-      <table class="sans"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody><tr><td><code>0</code></td><td>Every schema key is present and typed correctly.</td></tr><tr><td><code>1</code></td><td>Missing file, unknown type, missing key, or type mismatch.</td></tr></tbody></table>
+      <table class="sans"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody><tr><td><code>0</code></td><td>Schema matches, or example/describe succeeded.</td></tr><tr><td><code>1</code></td><td>Missing/mistyped keys, extra keys under --strict, or bad input.</td></tr></tbody></table>
     </section>
     <section>
       <h2>Configuration</h2>
-      <p>Schema file only. Types: string (non-empty), number (finite Number()), bool (true/false/1/0). Extra env vars are ignored. Missing keys fail.</p>
+      <p>Schema is a JSON object of KEY to `string`, `number`, or `bool`. `--strict` requires `--env` so host environment keys are not treated as extras.</p>
     </section>
     <section id="examples">
       <h2>Worked examples</h2>
       <h3 class="ok">Success path</h3>
-      <p>All keys present.</p><pre><code>PORT=8080 NAME=api FLAG=true envshape schema.json</code></pre><pre><code>{"ok":true,"errors":[]}</code></pre>
+      <p>Validate a dotenv file against a schema.</p><pre><code>envshape check --env .env schema.json</code></pre><pre><code>envshape: OK</code></pre>
       <h3 class="fail">Failure path</h3>
-      <p>PORT is not numeric.</p><pre><code>PORT=abc NAME=api envshape schema.json ; echo exit:$?</code></pre><pre><code>{"ok":false,"errors":[{"key":"PORT","reason":"expected number"}]}</code></pre><p>Exit code is 1.</p>
+      <p>Extra keys fail under --strict.</p><pre><code>envshape check --env .env --strict schema.json</code></pre><pre><code>envshape: FAIL
+  EXTRA: unexpected</code></pre><p>Exit code is 1.</p>
     </section>
   </div>
   <footer class="sans">

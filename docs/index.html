@@ -42,9 +42,39 @@
     <section id="install">
       <h2>Install</h2>
       <p>Install globally from Git, or run with Node from a clone. There are no extra dependencies.</p>
-      <pre><code>npm install -g git+https://github.com/theworker02/envshape.git
-envshape --help
-node src/cli.js --help</code></pre>
+      <pre><code>envshape 1.00 (1.0.0)
+
+Usage:
+  envshape check [options] &lt;schema.json&gt;
+  envshape example &lt;schema.json&gt;
+  envshape describe &lt;schema.json&gt;
+  envshape [options] &lt;schema.json&gt;
+
+Validate an environment against a JSON object of KEY -&gt; type.
+Types: string (non-empty), number (finite), bool (true/false/1/0).
+
+Subcommands:
+  check              Validate env against the schema (default)
+  example            Print a KEY= template for every schema key
+  describe           Print each key and its expected type
+
+Options:
+  -h, --help         Show this help and exit 0
+  -V, -v, --version  Print 1.0.0 and exit 0
+  --json             JSON result (check) or JSON schema dump (describe)
+  --env &lt;file&gt;       Load a simple KEY=VAL dotenv file instead of process.env
+  --strict           Fail when the env contains keys not listed in the schema
+  --example          Same as the example subcommand
+
+Exit codes:
+  0  schema matches (or example/describe succeeded)
+  1  missing/mistyped keys, extra keys under --strict, or bad input
+
+Examples:
+  envshape schema.json
+  envshape check --env .env --strict schema.json
+  envshape example schema.json
+  PORT=8080 NAME=app envshape ./env.schema.json</code></pre>
     </section>
     <section id="usage">
       <h2>Usage</h2>
@@ -77,11 +107,12 @@ Examples:
       <div class="grid-2">
         <div>
           <h3 class="ok">Success</h3>
-          <p>All keys present.</p><pre><code>PORT=8080 NAME=api FLAG=true envshape schema.json</code></pre><pre><code>{"ok":true,"errors":[]}</code></pre>
+          <p>Validate a dotenv file against a schema.</p><pre><code>envshape check --env .env schema.json</code></pre><pre><code>envshape: OK</code></pre>
         </div>
         <div>
           <h3 class="fail">Failure</h3>
-          <p>PORT is not numeric.</p><pre><code>PORT=abc NAME=api envshape schema.json ; echo exit:$?</code></pre><pre><code>{"ok":false,"errors":[{"key":"PORT","reason":"expected number"}]}</code></pre><p>Exit code is 1.</p>
+          <p>Extra keys fail under --strict.</p><pre><code>envshape check --env .env --strict schema.json</code></pre><pre><code>envshape: FAIL
+  EXTRA: unexpected</code></pre><p>Exit code is 1.</p>
         </div>
       </div>
     </section>

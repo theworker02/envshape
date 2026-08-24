@@ -57,23 +57,49 @@ PORT=8080 NAME=api envshape schema.json
 
 ## CLI reference
 
-Synopsis:
-
 ```text
-envshape [options] <schema.json>
-```
+envshape 1.00 (1.0.0)
 
-| Flag / argument | Meaning |
-| --- | --- |
-| `-h, --help` | Print detailed usage and exit 0. |
-| `-v, --version` | Print 1.0.0 and exit 0. |
-| `<schema.json>` | JSON object mapping env names to string, number, or bool. |
+Usage:
+  envshape check [options] <schema.json>
+  envshape example <schema.json>
+  envshape describe <schema.json>
+  envshape [options] <schema.json>
+
+Validate an environment against a JSON object of KEY -> type.
+Types: string (non-empty), number (finite), bool (true/false/1/0).
+
+Subcommands:
+  check              Validate env against the schema (default)
+  example            Print a KEY= template for every schema key
+  describe           Print each key and its expected type
+
+Options:
+  -h, --help         Show this help and exit 0
+  -V, -v, --version  Print 1.0.0 and exit 0
+  --json             JSON result (check) or JSON schema dump (describe)
+  --env <file>       Load a simple KEY=VAL dotenv file instead of process.env
+  --strict           Fail when the env contains keys not listed in the schema
+  --example          Same as the example subcommand
+
+Exit codes:
+  0  schema matches (or example/describe succeeded)
+  1  missing/mistyped keys, extra keys under --strict, or bad input
+
+Examples:
+  envshape schema.json
+  envshape check --env .env --strict schema.json
+  envshape example schema.json
+  PORT=8080 NAME=app envshape ./env.schema.json
+```
 
 Print the same text locally:
 
 ```bash
 envshape --help
+envshape -h
 envshape --version
+envshape -V
 ```
 
 Expected version output:
@@ -84,39 +110,40 @@ Expected version output:
 
 ## Configuration
 
-Schema file only. Types: string (non-empty), number (finite Number()), bool (true/false/1/0). Extra env vars are ignored. Missing keys fail.
+Schema is a JSON object of KEY to `string`, `number`, or `bool`. `--strict` requires `--env` so host environment keys are not treated as extras.
 
 ## Exit codes
 
 | Code | Meaning |
 | --- | --- |
-| `0` | Every schema key is present and typed correctly. |
-| `1` | Missing file, unknown type, missing key, or type mismatch. |
+| `0` | Schema matches, or example/describe succeeded. |
+| `1` | Missing/mistyped keys, extra keys under --strict, or bad input. |
 
 ## Examples
 
 ### Success path
 
-All keys present.
+Validate a dotenv file against a schema.
 
 ```bash
-PORT=8080 NAME=api FLAG=true envshape schema.json
+envshape check --env .env schema.json
 ```
 
-```json
-{"ok":true,"errors":[]}
+```text
+envshape: OK
 ```
 
 ### Failure path
 
-PORT is not numeric.
+Extra keys fail under --strict.
 
 ```bash
-PORT=abc NAME=api envshape schema.json ; echo exit:$?
+envshape check --env .env --strict schema.json
 ```
 
-```json
-{"ok":false,"errors":[{"key":"PORT","reason":"expected number"}]}
+```text
+envshape: FAIL
+  EXTRA: unexpected
 ```
 
 Exit code is 1.
