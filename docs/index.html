@@ -3,29 +3,92 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>envshape 1.00</title>
+  <title>envshape  · 1.00</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <div class="wrap brand">
-      <img src="logo.svg" alt="envshape mark">
-      <div>
-        <h1>envshape</h1>
-        <p class="tag">Typed process.env checks · version 1.00</p>
+  <nav class="nav sans">
+    <a class="brand-lockup" href="index.html"><img src="logo.svg" alt=""> envshape</a>
+    <div class="links">
+      <a href="index.html#overview">Overview</a>
+      <a href="index.html#install">Install</a>
+      <a href="usage.html">Usage</a>
+      <a href="index.html#examples">Examples</a>
+    </div>
+  </nav>
+  
+  <header class="hero">
+    <img src="logo.svg" alt="envshape mark">
+    <div>
+      <p class="kicker sans">theworker02 · version 1.00</p>
+      <h1>envshape</h1>
+      <p class="lede">Check process.env against { KEY: "string" | "number" | "bool" } and fail if anything is missing or the wrong type.</p>
+      <div class="badges sans">
+        <span class="badge">1.00 / 1.0.0</span>
+        <span class="badge">branch main</span>
+        <span class="badge">MIT</span>
+        <span class="badge">Node.js >= 18</span>
       </div>
     </div>
   </header>
-  <main class="wrap">
-    <section class="card">
-      <h2>Purpose</h2>
-      <p>Read a JSON schema of KEY to string|number|bool and validate process.env. Exit 1 when keys are missing or the wrong type.</p>
-      <h2>Install</h2>
-      <pre><code>npm install -g envshape</code></pre>
-      <h2>Usage</h2>
-      <pre><code>envshape schema.json</code></pre>
+  <div class="wrap">
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Broken deploys often start as a missing PORT or a string where a number was required. envshape is a preflight you can run before the process listens.</p>
+      <p>Operators and app authors who want a zero-dependency env check in Docker entrypoints, Render start commands, or local scripts.</p>
     </section>
-    <footer>MIT © 2026 theworker02 · version 1.00 (1.0.0) · navy #0B1F33 · gold #C9A227</footer>
-  </main>
+    <section id="install">
+      <h2>Install</h2>
+      <p>Install globally from Git, or run with Node from a clone. There are no extra dependencies.</p>
+      <pre><code>npm install -g git+https://github.com/theworker02/envshape.git
+envshape --help
+node src/cli.js --help</code></pre>
+    </section>
+    <section id="usage">
+      <h2>Usage</h2>
+      <p>Synopsis: <code>envshape [options] &lt;schema.json&gt;</code></p>
+      <p>See the <a href="usage.html">full CLI reference</a> for every flag, exit code, and example.</p>
+      <pre><code>envshape 1.00 (1.0.0)
+
+Usage:
+  envshape [options] &lt;schema.json&gt;
+
+Validate process.env against a JSON object of KEY -&gt; type.
+
+Types:
+  string   non-empty string
+  number   finite number (e.g. 8080)
+  bool     true, false, 1, or 0
+
+Options:
+  -h, --help       Show this help
+  -v, --version    Print 1.0.0
+
+Exit 0 when every key matches; otherwise print errors and exit 1.
+
+Examples:
+  envshape schema.json
+  PORT=8080 NAME=app envshape ./env.schema.json</code></pre>
+    </section>
+    <section id="examples">
+      <h2>Examples</h2>
+      <div class="grid-2">
+        <div>
+          <h3 class="ok">Success</h3>
+          <p>All keys present.</p><pre><code>PORT=8080 NAME=api FLAG=true envshape schema.json</code></pre><pre><code>{"ok":true,"errors":[]}</code></pre>
+        </div>
+        <div>
+          <h3 class="fail">Failure</h3>
+          <p>PORT is not numeric.</p><pre><code>PORT=abc NAME=api envshape schema.json ; echo exit:$?</code></pre><pre><code>{"ok":false,"errors":[{"key":"PORT","reason":"expected number"}]}</code></pre><p>Exit code is 1.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer class="sans">
+    MIT © 2026 theworker02 · version <strong>1.00</strong> (<code>1.0.0</code>) ·
+    navy <code>#0B1F33</code> · gold <code>#C9A227</code> ·
+    <a href="https://github.com/theworker02/envshape">GitHub</a> ·
+    <a href="https://thanks.dev/u/gh/theworker02">thanks.dev</a>
+  </footer>
 </body>
 </html>

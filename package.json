@@ -1,7 +1,7 @@
 {
   "name": "envshape",
   "version": "1.0.0",
-  "description": "Validate process.env against a JSON type schema.",
+  "description": "Check process.env against { KEY: \"string\" | \"number\" | \"bool\" } and fail if anything is missing or the wrong type.",
   "bin": {
     "envshape": "./src/cli.js"
   },
@@ -12,5 +12,26 @@
   "license": "MIT",
   "engines": {
     "node": ">=18"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theworker02/envshape.git"
+  },
+  "homepage": "https://theworker02.github.io/envshape/",
+  "bugs": {
+    "url": "https://github.com/theworker02/envshape/issues"
+  },
+  "files": [
+    "src",
+    "docs",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "env",
+    "schema",
+    "validation",
+    "cli",
+    "twelve-factor"
+  ]
 }
