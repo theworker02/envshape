@@ -9,11 +9,11 @@
 ![license MIT](https://img.shields.io/badge/license-MIT-0B1F33)
 ![node >=18](https://img.shields.io/badge/node-%3E%3D18-C9A227?labelColor=0B1F33)
 ![release 1.00](https://img.shields.io/github/v/release/theworker02/envshape?display_name=release)
-[![npm](https://img.shields.io/npm/v/@magnexis/envshape.svg)](https://www.npmjs.com/package/@magnexis/envshape)
+[![npm](https://img.shields.io/npm/v/%40magnexis/envshape.svg)](https://www.npmjs.com/package/%40magnexis/envshape)
 
 Package version **1.00** (`1.0.0`). Default branch is **`main`** — never `master`.
 
-**Docs:** [GitHub Pages](https://theworker02.github.io/envshape/) · **Source:** [`theworker02/envshape`](https://github.com/theworker02/envshape) · **Release 1.00:** [`v1.0.0`](https://github.com/theworker02/envshape/releases/tag/v1.0.0) · **npm:** [`@magnexis/envshape`](https://www.npmjs.com/package/@magnexis/envshape)
+**Docs:** [GitHub Pages](https://theworker02.github.io/envshape/) · **Source:** [`theworker02/envshape`](https://github.com/theworker02/envshape) · **Release 1.00:** [`v1.0.0`](https://github.com/theworker02/envshape/releases/tag/v1.0.0) · **npm:** [`@magnexis/envshape`](https://www.npmjs.com/package/%40magnexis/envshape)
 
 ## Why it exists
 
@@ -30,11 +30,11 @@ Requires Node.js 18 or newer. No extra npm dependencies.
 ### Global install from npm
 
 ```bash
-npm install -g @magnexis/envshape
+npm i -g @magnexis/envshape
 envshape --help
 ```
 
-Package page: https://www.npmjs.com/package/@magnexis/envshape
+Package page: https://www.npmjs.com/package/%40magnexis/envshape
 
 ### Global install from GitHub
 
