@@ -2,200 +2,108 @@
 
 <img src="docs/logo.svg" alt="envshape mark" width="96" height="96">
 
-**Check process.env against { KEY: "string" | "number" | "bool" } and fail if anything is missing or the wrong type.**
+**Validate environment variables and dotenv files against a compact typed schema before your application starts.**
 
-![version 1.00](https://img.shields.io/badge/version-1.00-C9A227?labelColor=0B1F33)
-![branch main](https://img.shields.io/badge/branch-main-0B1F33?labelColor=C9A227)
+[![JSR](https://jsr.io/badges/@theworker02/envshape)](https://jsr.io/@theworker02/envshape)
+![version 1.2.0](https://img.shields.io/badge/version-1.2.0-C9A227?labelColor=0B1F33)
 ![license MIT](https://img.shields.io/badge/license-MIT-0B1F33)
 ![node >=18](https://img.shields.io/badge/node-%3E%3D18-C9A227?labelColor=0B1F33)
-![release 1.00](https://img.shields.io/github/v/release/theworker02/envshape?display_name=release)
-[![npm](https://img.shields.io/npm/v/%40magnexis/envshape.svg)](https://www.npmjs.com/package/%40magnexis/envshape)
 
-Package version **1.00** (`1.0.0`). Default branch is **`main`** — never `master`.
+**Package:** [`@theworker02/envshape`](https://jsr.io/@theworker02/envshape) · **Docs:** [GitHub Pages](https://theworker02.github.io/envshape/) · **Source:** [`theworker02/envshape`](https://github.com/theworker02/envshape)
 
-**Docs:** [GitHub Pages](https://theworker02.github.io/envshape/) · **Source:** [`theworker02/envshape`](https://github.com/theworker02/envshape) · **Release 1.00:** [`v1.0.0`](https://github.com/theworker02/envshape/releases/tag/v1.0.0) · **npm:** [`@magnexis/envshape`](https://www.npmjs.com/package/%40magnexis/envshape)
+## Highlights
 
-## Why it exists
+- Typed `string`, `number`, and `bool` environment schemas.
+- Dotenv parsing and schema-file loading.
+- Strict mode for unexpected environment variables.
+- Fully documented JSR API with explicit TypeScript declarations.
+- Trusted publishing from GitHub Actions with provenance.
+- Zero runtime dependencies.
 
-Broken deploys often start as a missing PORT or a string where a number was required. envshape is a preflight you can run before the process listens.
-
-## Who it is for
-
-Operators and app authors who want a zero-dependency env check in Docker entrypoints, Render start commands, or local scripts.
-
-## Install
-
-Requires Node.js 18 or newer. No extra npm dependencies.
-
-### Global install from npm
+## Add from JSR
 
 ```bash
-npm i -g @magnexis/envshape
-envshape --help
+deno add jsr:@theworker02/envshape
 ```
 
-Package page: https://www.npmjs.com/package/%40magnexis/envshape
+Then import the library API:
 
-### Global install from GitHub
+```ts
+import { checkEnv, ENV_TYPES, PACKAGE } from "@theworker02/envshape";
 
-```bash
-npm install -g git+https://github.com/theworker02/envshape.git
-envshape --help
+const result = checkEnv(
+  { PORT: "number", NAME: "string" },
+  { PORT: "8080", NAME: "api" },
+);
+
+console.log(result.ok, ENV_TYPES, PACKAGE.version);
 ```
 
-### Clone and link locally
+## Public API
+
+### Validation
+
+- `checkEnv(schema, env, options)` — validate an environment object.
+- `checkSchemaFile(path, env, options)` — load a JSON schema and validate in one call.
+- `validateValue(type, value)` — validate one primitive value.
+- `isEnvType(value)` — type guard for supported schema primitive names.
+
+### Parsing and utilities
+
+- `parseDotenv(text)` — parse dotenv-formatted text.
+- `loadDotenvFile(path)` — read and parse a dotenv file.
+- `loadSchema(path)` — read a JSON schema from disk.
+- `exampleFromSchema(schema)` — create an empty dotenv template.
+- `formatHuman(result)` — render terminal-friendly validation output.
+
+### Symbols and types
+
+- `PACKAGE` — package identity and version metadata.
+- `ENV_TYPES` — supported primitive names.
+- `TYPES` — primitive validator table.
+- `EnvType`, `EnvSchema`, `EnvCheckResult`, `EnvCheckOptions`, `EnvError`, `PackageMetadata`.
+
+## CLI
+
+The repository still ships the existing Node CLI for source checkouts:
 
 ```bash
 git clone https://github.com/theworker02/envshape.git
 cd envshape
-npm install -g .
-```
-
-### Run without installing (npx / node)
-
-```bash
-npx --yes @magnexis/envshape --help
 node src/cli.js --help
 ```
 
-## Quick start
+Example:
 
 ```bash
 printf '{ "PORT": "number", "NAME": "string" }\n' > schema.json
-PORT=8080 NAME=api envshape schema.json
+PORT=8080 NAME=api node src/cli.js schema.json
 ```
 
-## CLI reference
-
-```text
-envshape 1.00 (1.0.0)
-
-Usage:
-  envshape check [options] <schema.json>
-  envshape example <schema.json>
-  envshape describe <schema.json>
-  envshape [options] <schema.json>
-
-Validate an environment against a JSON object of KEY -> type.
-Types: string (non-empty), number (finite), bool (true/false/1/0).
-
-Subcommands:
-  check              Validate env against the schema (default)
-  example            Print a KEY= template for every schema key
-  describe           Print each key and its expected type
-
-Options:
-  -h, --help         Show this help and exit 0
-  -V, -v, --version  Print 1.0.0 and exit 0
-  --json             JSON result (check) or JSON schema dump (describe)
-  --env <file>       Load a simple KEY=VAL dotenv file instead of process.env
-  --strict           Fail when the env contains keys not listed in the schema
-  --example          Same as the example subcommand
-
-Exit codes:
-  0  schema matches (or example/describe succeeded)
-  1  missing/mistyped keys, extra keys under --strict, or bad input
-
-Examples:
-  envshape schema.json
-  envshape check --env .env --strict schema.json
-  envshape example schema.json
-  PORT=8080 NAME=app envshape ./env.schema.json
-```
-
-Print the same text locally:
+## Development
 
 ```bash
-envshape --help
-envshape -h
-envshape --version
-envshape -V
-```
-
-Expected version output:
-
-```text
-1.0.0
-```
-
-## Configuration
-
-Schema is a JSON object of KEY to `string`, `number`, or `bool`. `--strict` requires `--env` so host environment keys are not treated as extras.
-
-## Exit codes
-
-| Code | Meaning |
-| --- | --- |
-| `0` | Schema matches, or example/describe succeeded. |
-| `1` | Missing/mistyped keys, extra keys under --strict, or bad input. |
-
-## Examples
-
-### Success path
-
-Validate a dotenv file against a schema.
-
-```bash
-envshape check --env .env schema.json
-```
-
-```text
-envshape: OK
-```
-
-### Failure path
-
-Extra keys fail under --strict.
-
-```bash
-envshape check --env .env --strict schema.json
-```
-
-```text
-envshape: FAIL
-  EXTRA: unexpected
-```
-
-Exit code is 1.
-
-## How to run tests
-
-No extra packages. From the repository root:
-
-```bash
-npm test
-# same as:
 node --test
 ```
 
-All tests must pass before you open a pull request against `main`.
+## Publishing
 
-## GitHub Pages
+Releases are published to JSR through GitHub Actions using OIDC trusted publishing. The canonical package is `@theworker02/envshape`.
 
-This repository ships a product site in `/docs`.
+## Documentation
 
-1. Open **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-3. Branch: **`main`**.
-4. Folder: **`/docs`**.
-5. Save, then wait for the Pages deployment.
-6. Open [https://theworker02.github.io/envshape/](https://theworker02.github.io/envshape/).
-
-Do not point Pages at `master`. The default branch is `main`.
+- [JSR package and generated API docs](https://jsr.io/@theworker02/envshape)
+- [Project site](https://theworker02.github.io/envshape/)
+- [Source repository](https://github.com/theworker02/envshape)
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Open pull requests against **`main`**.
+See [CONTRIBUTING.md](CONTRIBUTING.md). Open pull requests against `main`.
 
 ## Security
 
-See [SECURITY.md](SECURITY.md). Please report vulnerabilities privately.
+See [SECURITY.md](SECURITY.md).
 
 ## License
 
 [MIT](LICENSE) © 2026 theworker02
-
-## Funding
-
-- GitHub Sponsors: [theworker02](https://github.com/sponsors/theworker02)
-- thanks.dev: [https://thanks.dev/u/gh/theworker02](https://thanks.dev/u/gh/theworker02)
