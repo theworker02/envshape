@@ -1,7 +1,8 @@
 {
-  "name": "@magnexis/envshape",
-  "version": "1.0.0",
-  "description": "Check process.env against { KEY: \"string\" | \"number\" | \"bool\" } and fail if anything is missing or the wrong type.",
+  "name": "@theworker02/envshape",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Validate environment variables and dotenv files against a compact typed schema.",
   "bin": {
     "envshape": "src/cli.js"
   },
@@ -21,20 +22,6 @@
   "bugs": {
     "url": "https://github.com/theworker02/envshape/issues"
   },
-  "files": [
-    "src",
-    "docs",
-    "LICENSE",
-    "README.md"
-  ],
-  "keywords": [
-    "env",
-    "schema",
-    "validation",
-    "cli",
-    "twelve-factor"
-  ],
-  "publishConfig": {
-    "access": "public"
-  }
+  "files": ["src", "docs", "LICENSE", "README.md"],
+  "keywords": ["env", "schema", "validation", "cli", "twelve-factor", "jsr"]
 }
