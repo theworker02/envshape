@@ -3,130 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>envshape  · 1.00</title>
+  <title>envshape · 1.2.0</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <nav class="nav sans">
     <a class="brand-lockup" href="index.html"><img src="logo.svg" alt=""> envshape</a>
     <div class="links">
-      <a href="index.html#overview">Overview</a>
-      <a href="index.html#install">Install</a>
-      <a href="usage.html">Usage</a>
-      <a href="index.html#examples">Examples</a>
+      <a href="#overview">Overview</a>
+      <a href="#api">API</a>
+      <a href="#examples">Examples</a>
+      <a href="https://jsr.io/@theworker02/envshape">JSR</a>
       <a href="https://github.com/theworker02/envshape">GitHub</a>
-      <a href="https://www.npmjs.com/package/%40magnexis/envshape">npm</a>
-      <a href="https://github.com/theworker02/envshape/releases/tag/v1.0.0">1.00</a>
     </div>
   </nav>
-  
   <header class="hero">
     <img src="logo.svg" alt="envshape mark">
     <div>
-      <p class="kicker sans">theworker02 · version 1.00</p>
+      <p class="kicker sans">@theworker02/envshape · JSR · 1.2.0</p>
       <h1>envshape</h1>
-      <p class="lede">Check process.env against { KEY: "string" | "number" | "bool" } and fail if anything is missing or the wrong type.</p>
-      <div class="badges sans">
-        <span class="badge">1.00 / 1.0.0</span>
-        <span class="badge">branch main</span>
-        <span class="badge">MIT</span>
-        <span class="badge">Node.js >= 18</span>
-      </div>
+      <p class="lede">Typed environment validation for Node applications, dotenv files, deployment preflight checks, and automation.</p>
+      <div class="badges sans"><span class="badge">1.2.0</span><span class="badge">JSR</span><span class="badge">MIT</span><span class="badge">Node.js ≥ 18</span></div>
     </div>
   </header>
   <div class="wrap">
-    <section id="overview">
-      <h2>Overview</h2>
-      <p>Broken deploys often start as a missing PORT or a string where a number was required. envshape is a preflight you can run before the process listens.</p>
-      <p>Operators and app authors who want a zero-dependency env check in Docker entrypoints, Render start commands, or local scripts.</p>
-    </section>
-    <section id="install">
-      <h2>Install</h2>
-      <p>Install globally from npm, or run with Node from a clone. There are no extra dependencies.</p>
-      <p>Package: <a href="https://www.npmjs.com/package/%40magnexis/envshape"><code>@magnexis/envshape</code></a></p>
-      <pre><code>npm i -g @magnexis/envshape
-envshape --help</code></pre>
-      <pre><code>envshape 1.00 (1.0.0)
+    <section id="overview"><h2>Overview</h2><p>envshape catches missing, mistyped, and unexpected environment variables before an application starts. The 1.2.0 API adds explicit package metadata, primitive-type introspection, reusable value validation, and richer TypeScript documentation.</p></section>
+    <section id="api"><h2>Structured API</h2><p>Canonical package: <a href="https://jsr.io/@theworker02/envshape"><code>@theworker02/envshape</code></a></p><pre><code>import { checkEnv, validateValue, ENV_TYPES, PACKAGE } from "@theworker02/envshape";
 
-Usage:
-  envshape check [options] &lt;schema.json&gt;
-  envshape example &lt;schema.json&gt;
-  envshape describe &lt;schema.json&gt;
-  envshape [options] &lt;schema.json&gt;
-
-Validate an environment against a JSON object of KEY -&gt; type.
-Types: string (non-empty), number (finite), bool (true/false/1/0).
-
-Subcommands:
-  check              Validate env against the schema (default)
-  example            Print a KEY= template for every schema key
-  describe           Print each key and its expected type
-
-Options:
-  -h, --help         Show this help and exit 0
-  -V, -v, --version  Print 1.0.0 and exit 0
-  --json             JSON result (check) or JSON schema dump (describe)
-  --env &lt;file&gt;       Load a simple KEY=VAL dotenv file instead of process.env
-  --strict           Fail when the env contains keys not listed in the schema
-  --example          Same as the example subcommand
-
-Exit codes:
-  0  schema matches (or example/describe succeeded)
-  1  missing/mistyped keys, extra keys under --strict, or bad input
-
-Examples:
-  envshape schema.json
-  envshape check --env .env --strict schema.json
-  envshape example schema.json
-  PORT=8080 NAME=app envshape ./env.schema.json</code></pre>
-    </section>
-    <section id="usage">
-      <h2>Usage</h2>
-      <p>Synopsis: <code>envshape [options] &lt;schema.json&gt;</code></p>
-      <p>See the <a href="usage.html">full CLI reference</a> for every flag, exit code, and example.</p>
-      <pre><code>envshape 1.00 (1.0.0)
-
-Usage:
-  envshape [options] &lt;schema.json&gt;
-
-Validate process.env against a JSON object of KEY -&gt; type.
-
-Types:
-  string   non-empty string
-  number   finite number (e.g. 8080)
-  bool     true, false, 1, or 0
-
-Options:
-  -h, --help       Show this help
-  -v, --version    Print 1.0.0
-
-Exit 0 when every key matches; otherwise print errors and exit 1.
-
-Examples:
-  envshape schema.json
-  PORT=8080 NAME=app envshape ./env.schema.json</code></pre>
-    </section>
-    <section id="examples">
-      <h2>Examples</h2>
-      <div class="grid-2">
-        <div>
-          <h3 class="ok">Success</h3>
-          <p>Validate a dotenv file against a schema.</p><pre><code>envshape check --env .env schema.json</code></pre><pre><code>envshape: OK</code></pre>
-        </div>
-        <div>
-          <h3 class="fail">Failure</h3>
-          <p>Extra keys fail under --strict.</p><pre><code>envshape check --env .env --strict schema.json</code></pre><pre><code>envshape: FAIL
-  EXTRA: unexpected</code></pre><p>Exit code is 1.</p>
-        </div>
-      </div>
-    </section>
+const result = checkEnv({ PORT: "number" }, { PORT: "8080" });
+console.log(result.ok, validateValue("bool", "true"), ENV_TYPES, PACKAGE.version);</code></pre><p>Generated symbol documentation is available directly on JSR.</p></section>
+    <section id="examples"><h2>CLI from source</h2><pre><code>git clone https://github.com/theworker02/envshape.git
+cd envshape
+PORT=8080 NAME=api node src/cli.js schema.json</code></pre></section>
   </div>
-  <footer class="sans">
-    MIT © 2026 theworker02 · version <strong>1.00</strong> (<code>1.0.0</code>) ·
-    navy <code>#0B1F33</code> · gold <code>#C9A227</code> ·
-    <a href="https://www.npmjs.com/package/%40magnexis/envshape">npm</a> ·
-    <a href="https://github.com/theworker02/envshape">GitHub</a> ·
-    <a href="https://thanks.dev/u/gh/theworker02">thanks.dev</a>
-  </footer>
+  <footer class="sans">MIT © 2026 theworker02 · <strong>1.2.0</strong> · <a href="https://jsr.io/@theworker02/envshape">JSR</a> · <a href="https://github.com/theworker02/envshape">GitHub</a></footer>
 </body>
 </html>
