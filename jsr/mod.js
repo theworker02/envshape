@@ -1,3 +1,5 @@
+/* @ts-self-types="./mod.d.ts" */
+
 import fs from "node:fs";
 
 const TYPES = {
