@@ -2,11 +2,28 @@
 
 import fs from "node:fs";
 
-const TYPES = {
+const PACKAGE = Object.freeze({
+  name: "@theworker02/envshape",
+  version: "1.2.0",
+  runtime: "node",
+  registry: "jsr",
+});
+
+const ENV_TYPES = Object.freeze(["string", "number", "bool"]);
+
+const TYPES = Object.freeze({
   string: (value) => typeof value === "string" && value.length > 0,
   number: (value) => value !== "" && Number.isFinite(Number(value)),
   bool: (value) => value === "true" || value === "false" || value === "1" || value === "0",
-};
+});
+
+function isEnvType(type) {
+  return ENV_TYPES.includes(String(type));
+}
+
+function validateValue(type, value) {
+  return isEnvType(type) && TYPES[type](String(value));
+}
 
 function parseDotenv(text) {
   const env = {};
@@ -56,8 +73,7 @@ function exampleFromSchema(schema) {
 function checkEnv(schema, env = process.env, options = {}) {
   const errors = [];
   for (const [key, type] of Object.entries(schema)) {
-    const checker = TYPES[type];
-    if (!checker) {
+    if (!isEnvType(type)) {
       errors.push({ key, reason: `unknown type ${type}` });
       continue;
     }
@@ -65,7 +81,7 @@ function checkEnv(schema, env = process.env, options = {}) {
       errors.push({ key, reason: "missing" });
       continue;
     }
-    if (!checker(String(env[key]))) errors.push({ key, reason: `expected ${type}` });
+    if (!validateValue(type, env[key])) errors.push({ key, reason: `expected ${type}` });
   }
   if (options.strict) {
     for (const key of Object.keys(env)) {
@@ -87,7 +103,11 @@ function formatHuman(result) {
 }
 
 export {
+  PACKAGE,
+  ENV_TYPES,
   TYPES,
+  isEnvType,
+  validateValue,
   parseDotenv,
   loadDotenvFile,
   loadSchema,
