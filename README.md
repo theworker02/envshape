@@ -1,4 +1,4 @@
-# envshape
+﻿# envshape
 
 <img src="docs/logo.svg" alt="envshape mark" width="96" height="96">
 
@@ -6,10 +6,10 @@
 
 [![JSR](https://jsr.io/badges/@theworker02/envshape)](https://jsr.io/@theworker02/envshape)
 ![version 1.2.0](https://img.shields.io/badge/version-1.2.0-C9A227?labelColor=0B1F33)
-![license MIT](https://img.shields.io/badge/license-MIT-0B1F33)
+![license MIT](https://img.shields.io/badge/license-Proprietary%20(source--available)-0B1F33)
 ![node >=18](https://img.shields.io/badge/node-%3E%3D18-C9A227?labelColor=0B1F33)
 
-**Package:** [`@theworker02/envshape`](https://jsr.io/@theworker02/envshape) · **Docs:** [GitHub Pages](https://theworker02.github.io/envshape/) · **Source:** [`theworker02/envshape`](https://github.com/theworker02/envshape)
+**Package:** [`@theworker02/envshape`](https://jsr.io/@theworker02/envshape) Â· **Docs:** [GitHub Pages](https://theworker02.github.io/envshape/) Â· **Source:** [`theworker02/envshape`](https://github.com/theworker02/envshape)
 
 ## Highlights
 
@@ -43,24 +43,24 @@ console.log(result.ok, ENV_TYPES, PACKAGE.version);
 
 ### Validation
 
-- `checkEnv(schema, env, options)` — validate an environment object.
-- `checkSchemaFile(path, env, options)` — load a JSON schema and validate in one call.
-- `validateValue(type, value)` — validate one primitive value.
-- `isEnvType(value)` — type guard for supported schema primitive names.
+- `checkEnv(schema, env, options)` â€” validate an environment object.
+- `checkSchemaFile(path, env, options)` â€” load a JSON schema and validate in one call.
+- `validateValue(type, value)` â€” validate one primitive value.
+- `isEnvType(value)` â€” type guard for supported schema primitive names.
 
 ### Parsing and utilities
 
-- `parseDotenv(text)` — parse dotenv-formatted text.
-- `loadDotenvFile(path)` — read and parse a dotenv file.
-- `loadSchema(path)` — read a JSON schema from disk.
-- `exampleFromSchema(schema)` — create an empty dotenv template.
-- `formatHuman(result)` — render terminal-friendly validation output.
+- `parseDotenv(text)` â€” parse dotenv-formatted text.
+- `loadDotenvFile(path)` â€” read and parse a dotenv file.
+- `loadSchema(path)` â€” read a JSON schema from disk.
+- `exampleFromSchema(schema)` â€” create an empty dotenv template.
+- `formatHuman(result)` â€” render terminal-friendly validation output.
 
 ### Symbols and types
 
-- `PACKAGE` — package identity and version metadata.
-- `ENV_TYPES` — supported primitive names.
-- `TYPES` — primitive validator table.
+- `PACKAGE` â€” package identity and version metadata.
+- `ENV_TYPES` â€” supported primitive names.
+- `TYPES` â€” primitive validator table.
 - `EnvType`, `EnvSchema`, `EnvCheckResult`, `EnvCheckOptions`, `EnvError`, `PackageMetadata`.
 
 ## CLI
@@ -106,4 +106,5 @@ See [SECURITY.md](SECURITY.md).
 
 ## License
 
-[MIT](LICENSE) © 2026 theworker02
+**Source-available proprietary** — evaluation under [LICENSE](./LICENSE); commercial / production use via [COMMERCIAL.md](./COMMERCIAL.md). See [LICENSE_TRANSITION_NOTICE.md](./LICENSE_TRANSITION_NOTICE.md) and [NOTICE](./NOTICE).
+
