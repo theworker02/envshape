@@ -17,7 +17,7 @@ This project is **proprietary**. Production use, redistribution, and commercial 
 ![license MIT](https://img.shields.io/badge/license-Proprietary%20(source--available)-0B1F33)
 ![node >=18](https://img.shields.io/badge/node-%3E%3D18-C9A227?labelColor=0B1F33)
 
-**Package:** [`@theworker02/envshape`](https://jsr.io/@theworker02/envshape) Â· **Docs:** [GitHub Pages](https://theworker02.github.io/envshape/) Â· **Source:** [`theworker02/envshape`](https://github.com/theworker02/envshape)
+**Package:** [`@theworker02/envshape`](https://jsr.io/@theworker02/envshape) Ã‚Â· **Docs:** [GitHub Pages](https://theworker02.github.io/envshape/) Ã‚Â· **Source:** [`theworker02/envshape`](https://github.com/theworker02/envshape)
 
 ## Highlights
 
@@ -51,24 +51,24 @@ console.log(result.ok, ENV_TYPES, PACKAGE.version);
 
 ### Validation
 
-- `checkEnv(schema, env, options)` â€” validate an environment object.
-- `checkSchemaFile(path, env, options)` â€” load a JSON schema and validate in one call.
-- `validateValue(type, value)` â€” validate one primitive value.
-- `isEnvType(value)` â€” type guard for supported schema primitive names.
+- `checkEnv(schema, env, options)` Ã¢â‚¬â€ validate an environment object.
+- `checkSchemaFile(path, env, options)` Ã¢â‚¬â€ load a JSON schema and validate in one call.
+- `validateValue(type, value)` Ã¢â‚¬â€ validate one primitive value.
+- `isEnvType(value)` Ã¢â‚¬â€ type guard for supported schema primitive names.
 
 ### Parsing and utilities
 
-- `parseDotenv(text)` â€” parse dotenv-formatted text.
-- `loadDotenvFile(path)` â€” read and parse a dotenv file.
-- `loadSchema(path)` â€” read a JSON schema from disk.
-- `exampleFromSchema(schema)` â€” create an empty dotenv template.
-- `formatHuman(result)` â€” render terminal-friendly validation output.
+- `parseDotenv(text)` Ã¢â‚¬â€ parse dotenv-formatted text.
+- `loadDotenvFile(path)` Ã¢â‚¬â€ read and parse a dotenv file.
+- `loadSchema(path)` Ã¢â‚¬â€ read a JSON schema from disk.
+- `exampleFromSchema(schema)` Ã¢â‚¬â€ create an empty dotenv template.
+- `formatHuman(result)` Ã¢â‚¬â€ render terminal-friendly validation output.
 
 ### Symbols and types
 
-- `PACKAGE` â€” package identity and version metadata.
-- `ENV_TYPES` â€” supported primitive names.
-- `TYPES` â€” primitive validator table.
+- `PACKAGE` Ã¢â‚¬â€ package identity and version metadata.
+- `ENV_TYPES` Ã¢â‚¬â€ supported primitive names.
+- `TYPES` Ã¢â‚¬â€ primitive validator table.
 - `EnvType`, `EnvSchema`, `EnvCheckResult`, `EnvCheckOptions`, `EnvError`, `PackageMetadata`.
 
 ## CLI
@@ -114,4 +114,8 @@ See [SECURITY.md](SECURITY.md).
 
 ## License
 
-**Source-available proprietary** — evaluation under [LICENSE](./LICENSE); commercial / production use via [COMMERCIAL.md](./COMMERCIAL.md). See [LICENSE_TRANSITION_NOTICE.md](./LICENSE_TRANSITION_NOTICE.md) and [NOTICE](./NOTICE).
+**Source-available proprietary** â€” evaluation under [LICENSE](./LICENSE); commercial / production use via [COMMERCIAL.md](./COMMERCIAL.md). See [LICENSE_TRANSITION_NOTICE.md](./LICENSE_TRANSITION_NOTICE.md) and [NOTICE](./NOTICE).
+
+## Status
+
+envshape is actively packaged for commercial licensing and acquisition diligence. See [ACQUISITION.md](./ACQUISITION.md) and [docs/acquisition/](./docs/acquisition/).
