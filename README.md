@@ -14,10 +14,10 @@ This project is **proprietary**. Production use, redistribution, and commercial 
 
 [![JSR](https://jsr.io/badges/@theworker02/envshape)](https://jsr.io/@theworker02/envshape)
 ![version 1.2.0](https://img.shields.io/badge/version-1.2.0-C9A227?labelColor=0B1F33)
-![license MIT](https://img.shields.io/badge/license-Proprietary%20(source--available)-0B1F33)
+![license proprietary](https://img.shields.io/badge/license-proprietary-0B1F33)-0B1F33)
 ![node >=18](https://img.shields.io/badge/node-%3E%3D18-C9A227?labelColor=0B1F33)
 
-**Package:** [`@theworker02/envshape`](https://jsr.io/@theworker02/envshape) Ã‚Â· **Docs:** [GitHub Pages](https://theworker02.github.io/envshape/) Ã‚Â· **Source:** [`theworker02/envshape`](https://github.com/theworker02/envshape)
+**Package:** [`@theworker02/envshape`](https://jsr.io/@theworker02/envshape) Ãƒâ€šÃ‚Â· **Docs:** [GitHub Pages](https://theworker02.github.io/envshape/) Ãƒâ€šÃ‚Â· **Source:** [`theworker02/envshape`](https://github.com/theworker02/envshape)
 
 ## Highlights
 
@@ -51,24 +51,24 @@ console.log(result.ok, ENV_TYPES, PACKAGE.version);
 
 ### Validation
 
-- `checkEnv(schema, env, options)` Ã¢â‚¬â€ validate an environment object.
-- `checkSchemaFile(path, env, options)` Ã¢â‚¬â€ load a JSON schema and validate in one call.
-- `validateValue(type, value)` Ã¢â‚¬â€ validate one primitive value.
-- `isEnvType(value)` Ã¢â‚¬â€ type guard for supported schema primitive names.
+- `checkEnv(schema, env, options)` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â validate an environment object.
+- `checkSchemaFile(path, env, options)` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â load a JSON schema and validate in one call.
+- `validateValue(type, value)` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â validate one primitive value.
+- `isEnvType(value)` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â type guard for supported schema primitive names.
 
 ### Parsing and utilities
 
-- `parseDotenv(text)` Ã¢â‚¬â€ parse dotenv-formatted text.
-- `loadDotenvFile(path)` Ã¢â‚¬â€ read and parse a dotenv file.
-- `loadSchema(path)` Ã¢â‚¬â€ read a JSON schema from disk.
-- `exampleFromSchema(schema)` Ã¢â‚¬â€ create an empty dotenv template.
-- `formatHuman(result)` Ã¢â‚¬â€ render terminal-friendly validation output.
+- `parseDotenv(text)` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â parse dotenv-formatted text.
+- `loadDotenvFile(path)` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â read and parse a dotenv file.
+- `loadSchema(path)` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â read a JSON schema from disk.
+- `exampleFromSchema(schema)` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â create an empty dotenv template.
+- `formatHuman(result)` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â render terminal-friendly validation output.
 
 ### Symbols and types
 
-- `PACKAGE` Ã¢â‚¬â€ package identity and version metadata.
-- `ENV_TYPES` Ã¢â‚¬â€ supported primitive names.
-- `TYPES` Ã¢â‚¬â€ primitive validator table.
+- `PACKAGE` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â package identity and version metadata.
+- `ENV_TYPES` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â supported primitive names.
+- `TYPES` ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â primitive validator table.
 - `EnvType`, `EnvSchema`, `EnvCheckResult`, `EnvCheckOptions`, `EnvError`, `PackageMetadata`.
 
 ## CLI
@@ -114,7 +114,7 @@ See [SECURITY.md](SECURITY.md).
 
 ## License
 
-**Source-available proprietary** â€” evaluation under [LICENSE](./LICENSE); commercial / production use via [COMMERCIAL.md](./COMMERCIAL.md). See [LICENSE_TRANSITION_NOTICE.md](./LICENSE_TRANSITION_NOTICE.md) and [NOTICE](./NOTICE).
+**Source-available proprietary** Ã¢â‚¬â€ evaluation under [LICENSE](./LICENSE); commercial / production use via [COMMERCIAL.md](./COMMERCIAL.md). See [LICENSE_TRANSITION_NOTICE.md](./LICENSE_TRANSITION_NOTICE.md) and [NOTICE](./NOTICE).
 
 ## Status
 
